@@ -1,0 +1,64 @@
+DROP TABLE IF EXISTS Theater;
+DROP TABLE IF EXISTS Screen_movies;
+DROP TABLE IF EXISTS Movie;
+DROP TABLE IF EXISTS Customer;
+DROP TABLE IF EXISTS Screen;
+DROP TABLE IF EXISTS Reserve;
+DROP TABLE IF EXISTS New_Reserve;
+
+
+CREATE TABLE Theater (
+  name VARCHAR(250) PRIMARY KEY AUTOINCREMENT,
+  location  VARCHAR(250) NOT NULL,
+  tel VARCHAR(250) NOT NULL,
+  address VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Screen_movies   (
+  theater_name VARCHAR(250) NOT NULL, FOREIGN KEY(theater_name) REFERENCES Theater(name),
+  movie_name VARCHAR(250) NOT NULL,  FOREIGN KEY(movie_name) REFERENCES Movie(name)
+   
+
+);
+
+CREATE TABLE Movie (
+  name VARCHAR(250) PRIMARY KEY AUTOINCREMENT,
+  genre  VARCHAR(250) NOT NULL,
+  grade INTEGER NOT NULL,
+  time INTEGER NOT NULL
+);
+
+CREATE TABLE Customer (
+  name VARCHAR(250) PRIMARY KEY AUTOINCREMENT,
+  age Integer NOT NULL,
+  sex VARCHAR(250) NOT NULL,
+);
+
+
+CREATE TABLE Screen (
+  movie_name VARCHAR(250) NOT NULL, FOREIGN KEY(movie_name) REFERENCES Movie(name),
+  theater_name VARCHAR(250) NOT NULL,FOREIGN KEY(theater_name) REFERENCES Theater(name)
+ 
+);
+
+
+CREATE TABLE Reserve (
+  customer_name VARCHAR(250) PRIMARY KEY AUTOINCREMENT,FOREIGN KEY(customer_name) REFERENCES Customer(name),
+  theater_name VARCHAR(250) PRIMARY KEY AUTOINCREMENT,FOREIGN KEY(theater_name) REFERENCES Theater(name),
+  movie_name VARCHAR(250) PRIMARY KEY AUTOINCREMENT,FOREIGN KEY(movie_name) REFERENCES Movie(name),
+  score Integer NOT NULL,
+  ticketing_time VARCHAR(250) NOT NULL,
+  seat_num VARCHAR(250) NOT NULL
+);
+
+
+CREATE TABLE New_Reserve (
+  customer_name VARCHAR(250) PRIMARY KEY AUTOINCREMENT,FOREIGN KEY(customer_name) REFERENCES Customer(name),
+  theater_name VARCHAR(250) PRIMARY KEY AUTOINCREMENT,FOREIGN KEY(theater_name) REFERENCES Theater(name),
+  movie_name VARCHAR(250) PRIMARY KEY AUTOINCREMENT,FOREIGN KEY(movie_name) REFERENCES Movie(name),
+  
+  score Integer NOT NULL,
+  ticketing_time VARCHAR(250) NOT NULL,
+  seat_num VARCHAR(250) NOT NULL
+);
+
