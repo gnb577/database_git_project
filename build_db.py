@@ -2,9 +2,9 @@ import sqlite3
 import argparse
 
 parser = argparse.ArgumentParser(description="arguments for building a test database.")
-parser.add_argument('--db', default='restaurant_menu.db', help='sqlite3 database')
-parser.add_argument('--schema', default='movie_schema.sql', help='schema definition')
-parser.add_argument('--data', default='moive_tuple.sql', help='data')
+parser.add_argument('--db', default='movie_cinema2.db', help='sqlite3 database')
+parser.add_argument('--schema', default='movie_schema_temp.sql', help='schema definition')
+parser.add_argument('--data', default='movie_tuple.sql', help='data')
 args = parser.parse_args()
 
 def init_db(dump_bulkdata=False):
