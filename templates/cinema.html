@@ -1,0 +1,15 @@
+<!doctype HTML>
+<html>
+    <head>
+        <meta charset ="utf-8">
+        <title> Welcome Embedded Cinema</title>
+    </head>
+    <body>
+        <h1>Movie Chart</h1>
+       <p> <a href="http://localhost:5000/login">Login Page</a><br><br>  </p> 
+        {% for item in items %}
+        {{ item.name }} <br>
+        {{ item.location }} <br><br>
+        {% endfor %}
+    </body>
+</html>
