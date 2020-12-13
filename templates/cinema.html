@@ -5,11 +5,29 @@
         <title> Welcome Embedded Cinema</title>
     </head>
     <body>
-        <h1>Movie Chart</h1>
-       <p> <a href="http://localhost:5000/login">Login Page</a><br><br>  </p> 
-        {% for item in items %}
-        {{ item.name }} <br>
-        {{ item.location }} <br><br>
-        {% endfor %}
+        <h1>Embedded Cinema</h1>
+      
+     {% if session['logged_in'] %}
+   
+       {% if data %}
+       <h3>{{data}}</h3>
+       {% else %}
+   
+       <a href="/logout">Logout</a> <br> <br>
+       <form action="" method="POST">
+         <input type="username" name="username" placeholder="Instagram Username">
+         <input type="submit" value="Finds">
+       </form>
+       {% endif %}
+   
+     {% else %}
+        <p>Not login!</p>
+     {% endif %}
+        <p> <a href="http://localhost:5000/cinema/theater">영화관</a><br><br>  </p>
+        <p> <a href="http://localhost:5000/cinema/movie">영화</a><br><br>  </p> 
+        <p> <a href="http://localhost:5000/cinema/reservation">예약</a><br><br>  </p>
+        <p> <a href="http://localhost:5000/cinema/log">고객 기록</a><br><br>  </p>
+        <p> <a href="http://localhost:5000/cinema/register">회원가입</a><br><br>  </p>
+        <p> <a href="http://localhost:5000/cinema/login">로그인</a><br><br>  </p>
     </body>
 </html>

@@ -1,9 +1,24 @@
 from flask import Flask 
 import sqlite3
-from flask import Blueprint, request, render_template, flash, redirect, url_for
+from flask import Blueprint, request, render_template, flash, redirect, url_for, session
 from flask import current_app as current_app
+from flask_sqlalchemy import SQLAlchemy
+from instagram import getfollowedby, getname
+
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///login.db'
+login_db = SQLAlchemy(app)
+
+class User(db.Model):
+	""" Create user table"""
+	id = login_db.Column(login_db.Integer, primary_key=True)
+	username = login_db.Column(login_db.String(80), unique=True)
+	password = login_db.Column(login_db.String(80))
+
+	def __init__(self, username, password):
+		self.username = username
+		self.password = password
 
 @app.route('/')
 @app.route('/cinema')
