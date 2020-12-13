@@ -12,7 +12,7 @@ def showMenu():
 
 @app.route('/cinema/theater')
 def showTheater():
-    db =sqlite3.connect('./database/movie_theater.db')
+    db =sqlite3.connect('./movie_cinema.db')
     db.row_factory = sqlite3.Row
     items = db.execute(
         'SELECT name,location FROM Theater'

@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///login.db'
 login_db = SQLAlchemy(app)
 
-class User(db.Model):
+class User(login_db.Model):
 	""" Create user table"""
 	id = login_db.Column(login_db.Integer, primary_key=True)
 	username = login_db.Column(login_db.String(80), unique=True)
@@ -26,19 +26,37 @@ def showMenu():
     return render_template('/cinema.html')
 
 @app.route('/cinema/theater')
-def showTheater():
-    db =sqlite3.connect('./database/movie_theater.db')
-    db.row_factory = sqlite3.Row
-    items = db.execute(
-        'SELECT name,location FROM Theater'
-    ).fetchall()
-    db.close()
+@app.route('/cinema/theater/<string:t_name>') 
+def showTheater(t_name=None):
+    if t_name:
+        db =sqlite3.connect('./movie_cinema.db')
+        db.row_factory = sqlite3.Row
+        items = db.execute(
+            'SELECT theater_name,movie_name FROM Screen_movies WHERE theater_name = ?',(t_name,)
+        ).fetchall()
+        db.close()
+        return render_template('/theater_movie.html',items = items)
 
-    return render_template('/theater.html',items = items)
+    else:
+        db =sqlite3.connect('./movie_cinema.db')
+        db.row_factory = sqlite3.Row
+        items = db.execute(
+            'SELECT name,location FROM Theater'
+        ).fetchall()
+        db.close()
+
+        return render_template('/theater.html',items = items)
+
+
+  
+
+
 
 @app.route('/cinema/movie')
 def showMovie():
     return render_template('/movie.html')
+
+
 
 @app.route('/cinema/reservation')
 def showReservation():
