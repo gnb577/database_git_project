@@ -1,0 +1,13 @@
+<!doctype HTML>
+<html>
+    <head>
+        <meta charset ="utf-8">
+        <title> Welcome Embedded</title>
+    </head>
+    <body>
+        <h1>{{movie_name}} 상영 영화관</h1>
+        {% for item in items %}
+        {{ item.theater_name }} <br>
+        {% endfor %}
+    </body>
+</html>

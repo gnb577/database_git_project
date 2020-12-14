@@ -6,9 +6,19 @@
     </head>
     <body>
         <h1>Movie Chart</h1>
+        <form action = "/movie_info" method="post">
+            <ul>
+                <li>
+                    <label for="name">Movie_Name:</label>
+                    <input type="text" id = movie_name name = movie_name>
+                    <input type="submit" value="검색">
+                </li>
+            </ul>
+        </form>
         {% for item in items %}
-        {{ item.name }} <br>
-        {{ item.location }} <br><br>
+        {{ item.name }} 
+        {{ item.genre }} 
+        {{ item.grade }} <br><br>
         {% endfor %}
     </body>
 </html>

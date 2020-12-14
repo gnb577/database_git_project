@@ -1,3 +1,4 @@
+
 from flask import Flask 
 import sqlite3
 from flask import Blueprint, request, render_template, flash, redirect, url_for, session
@@ -55,14 +56,28 @@ def showTheater(t_name = None):
 
 
   
-
-
-
 @app.route('/cinema/movie')
 def showMovie():
-    return render_template('/movie.html')
+        db3 =sqlite3.connect('./movie_cinema.db')
+        db3.row_factory = sqlite3.Row
+        items = db3.execute(
+            'SELECT name,genre,grade,time,year FROM Movie'
+        ).fetchall()
+        db3.close()
+        return render_template('/movie.html',items = items)
 
-@app.route('/movie') 
+@app.route('/cinema/theater/movie_search',methods = ['POST','GET'])
+def showTheater2():
+    if request.method == 'POST':
+        movie_movie_name = request.form['movie_movie_name']
+        db4 =sqlite3.connect('./movie_cinema.db')
+        db4.row_factory = sqlite3.Row
+        items = db4.execute(
+            'SELECT theater_name FROM Screen_Movies WHERE movie_name =?',(movie_movie_name,)
+        ).fetchall()
+        return render_template('/movie_search.html',items = items,movie_name = movie_movie_name)
+    
+
 
 
 @app.route('/cinema/reservation')
