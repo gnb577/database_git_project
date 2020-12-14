@@ -6,12 +6,20 @@
     </head>
     <body>
         <h1>Theater Page</h1>
+        <form action = "/movie_search" method="post">
+            <ul>
+                <li>
+                    <label for="name">Movie_Name:</label>
+                    <input type="text" id = movie_name name = movie_name>
+                    <input type="submit" value="검색">
+                </li>
+            </ul>
+        </form>
+
         {% for item in items %}
         {{ item.name }} <br>
         {{ item.location }} <br><br>
-        <div id="copyright">copyright </div> 로 div 엘리먼트 ID 를 지정
-        <a href="#copyright">
-        <a href='/cinema/theater/'+ 'item.name'>상영 영화</a> <br> <br>
+        <a href='/cinema/theater/{{item.name}}'>상영 영화</a> <br> <br>
         {% endfor %}
     </body>
 </html>

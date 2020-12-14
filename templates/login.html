@@ -1,21 +1,15 @@
 <!--요청하는 순간 읽어서 가져감-->
 <!--html5 표식, 문서의 시작과 끝을 표기, 브라우저는 html5임을 인식-->
 <!--시작태그, 종료태그, 컨텐츠 = 엘리먼트 //// 시작태그는 속성을 가질 수 있다.-->
-<!DOCTYPE html>
-<html>
-    <!--head는 메타정보만. 본문이 아닌 제목, 등등 문서를 기술하는 내용(눈에 보이지 않는다)-->
-    <head></head>
-    <!-- 데이터, 구조 담당 (눈에 보임)-->
-    <body>
-        <h2>로그인 페이지 :</h2>
-        <fieldset>
-            <form method='post' action = '/login'>
-                <input type='text' placeholder = "아이디" name = 'uid' />
-                <br/>
-                <input type='password' placeholder = '비밀번호' name = 'upw'/>
-                <br/>
-                <input type='submit'/>
-            </form>
-        </fieldset>
-    </body>
-</html>
+
+    {% if session['logged_in'] %}
+    <p>You're logged in already!</p>
+    {% else %}
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+      <input type="userid" name="userid" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <input type="submit" value="Log in">
+    </form>
+    {% endif %}
+

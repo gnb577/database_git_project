@@ -1,10 +1,17 @@
 <!doctype HTML>
 <html>
-    <head>
-        <meta charset ="utf-8">
-        <title> Welcome Embedded Reservation</title>
-    </head>
-    <body>
-        <h1>Register Page</h1>
-    </body>
+{% if session['logged_in'] %}
+<p>Oh no Dont show page</p>
+{% else %}
+
+<h2>Register</h2>
+<form action="/register/" method="POST">
+  <input type="userid" name="username" placeholder="Userid">
+  <input type="password" name="password" placeholder="Password">
+  <input type="username" name="username" placeholder="Username">
+  <input type="age" name="age" placeholder="Age">
+  <input type="sex" name="sex" placeholder="Sex">
+  <input type="submit" value="회원가입">
+</form>
+{% endif %}
 </html>
