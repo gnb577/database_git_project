@@ -5,10 +5,9 @@
         <title> Welcome Embedded</title>
     </head>
     <body>
-        <h1>Theater</h1>
+        <h1>{{t_name}}</h1>
         {% for item in items %}
-        {{ item.theater_name }} <br>
-        {{ item.movie_name }} <br><br>
+        {{ item.movie_name }} <br>
         {% endfor %}
     </body>
 </html>

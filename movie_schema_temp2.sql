@@ -26,7 +26,7 @@ CREATE TABLE Member (
   id VARCHAR(80),
   password VARCHAR(80) NOT NULL,
   name VARCHAR(80) NOT NULL,
-  age Integer NOT NULL,
+  age VARCHAR(80) NOT NULL,
   sex VARCHAR(80) NOT NULL,
   PRIMARY KEY(id)
 );

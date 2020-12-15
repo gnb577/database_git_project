@@ -1,0 +1,17 @@
+<!doctype HTML>
+<html>
+    <head>
+        <meta charset ="utf-8">
+        <title> Welcome Embedded</title>
+    </head>
+    <body>
+        <h1>{{movie_name}} 영화 정보</h1>
+        {% for item in items %}
+        <p>제목: {{ item.name }} </p> 
+        <p>장르: {{ item.genre }}  </p>
+        <p>연령등급: {{ item.grade }}</p> 
+        <p>상영시간: {{ item.time }}</p> 
+        <p>개봉년도: {{ item.year }}</p>
+        {% endfor %}
+    </body>
+</html>

@@ -1,17 +1,18 @@
 <!doctype HTML>
 <html>
-{% if session['logged_in'] %}
-<p>Oh no Dont show page</p>
-{% else %}
-
 <h2>Register</h2>
-<form action="/register/" method="POST">
-  <input type="userid" name="username" placeholder="Userid">
-  <input type="password" name="password" placeholder="Password">
-  <input type="username" name="username" placeholder="Username">
-  <input type="age" name="age" placeholder="Age">
-  <input type="sex" name="sex" placeholder="Sex">
+<form action="/cinema/register" method="POST">
+  <label for="userid">아이디: </label>
+  <input type="userid" name="userid" placeholder="아이디"><br><br>
+  <label for="userid">비밀번호:</label>
+  <input type="password" name="password" placeholder="비밀번호"><br><br>
+  <label for="userid">이름: </label>
+  <input type="username" name="username" placeholder="이름"><br><br>
+  <label for="userid">나이: </label>
+  <input type="age" name="age" placeholder="나이"><br><br>
+  <label for="userid">성별: </label>
+  <input type="sex" name="sex" placeholder="성별"><br><br>
   <input type="submit" value="회원가입">
 </form>
-{% endif %}
+
 </html>
