@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///login.db'
 db = SQLAlchemy(app)
 db10 = SQLAlchemy(app)
-login_id = 'jay'
+login_id = 'day'
 
 
 class User(db.Model):
@@ -32,12 +32,12 @@ class User(db.Model):
 
 @app.route('/')
 @app.route('/cinema')
-def showMenu(data = None):
+@app.route('/cinema/<data>')
+def showMenu(data=None):
     if not session.get('logged_in'):
         return render_template('/cinema.html')    
     else:
         if data:
-            login_id = data
             return render_template('/cinema.html', data = data)
         else:
             return render_template('/cinema.html') 
@@ -106,8 +106,6 @@ def showMovie3():
         data = request.form.get("order")
         db20 =sqlite3.connect('./movie_cinema.db')
         db20.row_factory = sqlite3.Row
-        print("hello")
-        print(data)
         if data == "name":
             items = db20.execute(
                 'SELECT name,genre,grade,time,year FROM Movie ORDER BY name'
@@ -136,31 +134,53 @@ def showMovie2():
         ).fetchall()
         return render_template('/movie_movie.html',items = items, movie_name = movie_movie_name2)
 
-
-@app.route('/cinema/reservation',methods = ['POST','GET'])
-def showReservation():
+@app.route('/cinema/reservation', methods = ['POST','GET'])
+def showReservation1():
+    return "로그인 하고 와주세요."
+@app.route('/cinema/reservation/<data>',methods = ['POST','GET'])
+def showReservation(data):
     if request.method == 'POST':
-        db11 =sqlite3.connect('./movie_cinema.db')
         movie_name = request.form['movie_name']
         theater = request.form['theater']
         score = request.form['score']
         ticketing_time= request.form['ticketing_time']
         seat = request.form['seat']
-        data = [login_id,movie_name,theater,score,ticketing_time,seat]
-        db11.execute('insert into Reservation values (?,?,?,?,?,?)',(*data,))
-        db11.commit()
-        db11.close()
-    return render_template('/reservation.html')
+        db12 = sqlite3.connect('./movie_cinema.db')
+        db12.row_factory = sqlite3.Row
+        age = db12.execute(
+        'SELECT age FROM Member WHERE id =? ',(data,)
+        ).fetchall()
+        db13 = sqlite3.connect('./movie_cinema.db')
+        db13.row_factory = sqlite3.Row
+        grade = db12.execute(
+            'SELECT grade FROM Movie WHERE name =? ',(movie_name,)
+        ).fetchall()
+        print(age)
+        print(grade)
+        if age < grade:
+            return redirect(url_for('showMenu'))
+        else:
+            db11 = sqlite3.connect('./movie_cinema.db')
+            data2 = [data ,movie_name,theater,score,ticketing_time,seat]
+            db11.execute('insert into Reservation values (?,?,?,?,?,?)',(*data2,))
+            db11.commit()
+            db11.close()
+            return redirect(url_for('showMenu'))
+    return render_template('/reservation.html',data = data)
 
 @app.route('/cinema/log')
-def showLog():
+def showLog1():
+    return "로그인 하고 와주세요."
+
+@app.route('/cinema/log/<data>')
+def showLog(data):
         db12 =sqlite3.connect('./movie_cinema.db')
         db12.row_factory = sqlite3.Row
         items = db12.execute(
-            'SELECT movie_name,theater_name,score,ticketing_time,seat FROM Reservation WHERE member_id = ?',(login_id,)
+            'SELECT movie_name,theater_name,score,ticketing_time,seat FROM Reservation WHERE member_id = ?',(data,)
         ).fetchall()
         db12.close()
-        return render_template('/log.html',items = items,login_id = login_id)
+        return render_template('/log.html',items = items,login_id = data)
 
 @app.route('/cinema/register', methods=['GET', 'POST'])
 def showRegister():
@@ -186,12 +206,11 @@ def login():
 			data = User.query.filter_by(userid=uid, password=passw).first()
 			if data is not None:
 				session['logged_in'] = True
-				return redirect(url_for('showMenu',data = uid))
+				return redirect(url_for('showMenu',data = uid))                
 			else:
 				return 'Dont Login'
 		except:
 			return "Dont2 Login"
-
 
             
 @app.route("/cinema/logout")

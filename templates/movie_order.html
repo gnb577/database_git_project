@@ -1,0 +1,9 @@
+</form>
+        {% for item in items %}
+        <p>제목: {{ item.name }} </p> 
+        <p>장르: {{ item.genre }}  </p>
+        <p>연령등급: {{ item.grade }}</p>  
+        <a href='/cinema/movie/{{item.name}}'>영화 상세 정보</a> <br><br>
+        {% endfor %}
+    </body>
+</html>

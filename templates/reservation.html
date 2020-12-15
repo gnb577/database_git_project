@@ -2,7 +2,7 @@
         <h1>Reservation page</h1>
       
         {% if session['logged_in'] %}
-        <form action="/cinema/reservation" method="POST">
+        <form action="/cinema/reservation/{{data}}" method="POST">
             <label for="movie_name">영화:</label>
             <input type="movie_name" name="movie_name" placeholder="영화"><br><br>
             <label for="theater">영화관: </label>
