@@ -30,22 +30,6 @@ class User(db.Model):
 
 
 
-class reserve(db.Model):
-    id = db10.Column(db10.Integer, primary_key=True)
-    userid = db10.Column(db10.String(80), unique=True)
-    password = db10.Column(db10.String(80))
-    username = db10.Column(db10.String(80))
-    age =  db10.Column(db10.String(80))
-    sex = db10.Column(db10.String(80))
-
-    def __init__(self, userid, password,username,age, sex):
-        self.userid = userid
-        self.password = password
-        self.username = username
-        self.age = age
-        self.sex = sex
-
-
 @app.route('/')
 @app.route('/cinema')
 def showMenu(data = None):
@@ -83,24 +67,35 @@ def showTheater(t_name = None):
 
 @app.route('/cinema/movie')  
 @app.route('/cinema/movie/<string:m_name>')
-def showMovie(m_name = None):
-    if m_name:
-        db5 =sqlite3.connect('./movie_cinema.db')
-        db5.row_factory = sqlite3.Row
-        items = db5.execute(
-            'SELECT name,genre,grade,time,year FROM Movie WHERE name = ?',(m_name,)
-        ).fetchall()
-        db5.close()
-        return render_template('/movie_movie.html',items = items, m_name = m_name)
-    
-    else:
-        db3 =sqlite3.connect('./movie_cinema.db')
-        db3.row_factory = sqlite3.Row
-        items = db3.execute(
-            'SELECT name,genre,grade,time,year FROM Movie'
-        ).fetchall()
-        db3.close()
-        return render_template('/movie.html',items = items)
+def showMovie(m_name = None, methods = ['POST','GET']):
+        if m_name:
+            db5 =sqlite3.connect('./movie_cinema.db')
+            db5.row_factory = sqlite3.Row
+            items = db5.execute(
+                'SELECT name,genre,grade,time,year FROM Movie WHERE name = ?',(m_name,)
+            ).fetchall()
+            db5.close()
+            return render_template('/movie_movie.html',items = items, m_name = m_name)
+        else:
+            if request.method == 'POST':
+                data = request.form.get("order")
+                db5 =sqlite3.connect('./movie_cinema.db')
+                db5.row_factory = sqlite3.Row
+                print("hi")
+                items = db5.execute(
+                    'SELECT name,genre,grade,time,year FROM Movie order by = ?',(data,)
+                ).fetchall()
+                db5.close()
+                return render_template('/movie.html',items = items)
+            else:
+                db3 =sqlite3.connect('./movie_cinema.db')
+                db3.row_factory = sqlite3.Row
+                print("hello")
+                items = db3.execute(
+                    'SELECT name,genre,grade,time,year FROM Movie'
+                ).fetchall()
+                db3.close()
+                return render_template('/movie.html',items = items)
 
 
 

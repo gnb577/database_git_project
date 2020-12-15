@@ -1,10 +1,15 @@
-<!doctype HTML>
-<html>
-    <head>
-        <meta charset ="utf-8">
-        <title> Welcome Embedded Log</title>
-    </head>
-    <body>
-        <h1>Log Page</h1>
+
+    {% if session['logged_in'] %}
+        <h1>{{login_id}} 고객 기록</h1>
+        {% for item in items %}
+        <p>영화: {{ item.movie_name }} </p> 
+        <p>영화관: {{ item.theater_name }}  </p>
+        <p>점수: {{ item.score }}</p> 
+        <p>발행시간: {{ item.ticketing_time }}</p> 
+        <p>좌석번호: {{ item.seat }}</p><br>
+        {% endfor %}
+    {% else %}
+        <p>로그인을 하고 와주세요</p> 
+    {% endif %} 
     </body>
 </html>

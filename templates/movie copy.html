@@ -15,14 +15,6 @@
                 </li>
             </ul>
         </form>
-        <form action = "/cinema/movie" method="post">
-            <select name = "order" size ="3">
-                <option value = "name">제목순</option>
-                <option value = "genre">장르순</option>  
-                <option value = "grade">연령</option>  
-                <option value = "year">개봉년도</option>     
-            </select>
-        </form>
         {% for item in items %}
         <p>제목: {{ item.name }} </p> 
         <p>장르: {{ item.genre }}  </p>
