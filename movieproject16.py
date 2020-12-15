@@ -1,4 +1,3 @@
-
 from flask import Flask 
 import sqlite3
 from flask import Blueprint, request, render_template, flash, redirect, url_for, session
@@ -10,8 +9,9 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///login.db'
 db = SQLAlchemy(app)
+db10 = SQLAlchemy(app)
+login_id = 'jay'
 
-login_id = 'admin'
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,16 +29,35 @@ class User(db.Model):
         self.sex = sex
 
 
+
+class reserve(db.Model):
+    id = db10.Column(db10.Integer, primary_key=True)
+    userid = db10.Column(db10.String(80), unique=True)
+    password = db10.Column(db10.String(80))
+    username = db10.Column(db10.String(80))
+    age =  db10.Column(db10.String(80))
+    sex = db10.Column(db10.String(80))
+
+    def __init__(self, userid, password,username,age, sex):
+        self.userid = userid
+        self.password = password
+        self.username = username
+        self.age = age
+        self.sex = sex
+
+
 @app.route('/')
-@app.route('/cinema',methods = ['POST','GET'])
-def showMenu():
+@app.route('/cinema')
+def showMenu(data = None):
     if not session.get('logged_in'):
         return render_template('/cinema.html')    
     else:
-        if request.method == 'POST':
-            userid = request.form['userid']
-            return render_template('/cinema.html', data=userid)
-        return render_template('/cinema.html')    
+        if data:
+            login_id = data
+            return render_template('/cinema.html', data = data)
+        else:
+            return render_template('/cinema.html') 
+
 
 @app.route('/cinema/theater')
 @app.route('/cinema/theater/<string:t_name>') 
@@ -109,8 +128,19 @@ def showMovie2():
         return render_template('/movie_movie.html',items = items, movie_name = movie_movie_name2)
 
 
-@app.route('/cinema/reservation')
+@app.route('/cinema/reservation',methods = ['POST','GET'])
 def showReservation():
+    if request.method == 'POST':
+        db11 =sqlite3.connect('./movie_cinema.db')
+        movie_name = request.form['movie_name']
+        theater = request.form['theater']
+        score = request.form['score']
+        ticketing_time= request.form['ticketing_time']
+        seat = request.form['seat']
+        data = [login_id,movie_name,theater,score,ticketing_time,seat]
+        db11.execute('insert into Reservation values (?,?,?,?,?,?)',(*data,))
+        db11.commit()
+        db11.close()
     return render_template('/reservation.html')
 
 @app.route('/cinema/log')
@@ -141,11 +171,12 @@ def login():
 			data = User.query.filter_by(userid=uid, password=passw).first()
 			if data is not None:
 				session['logged_in'] = True
-				return redirect(url_for('showMenu'))
+				return redirect(url_for('showMenu',data = uid))
 			else:
 				return 'Dont Login'
 		except:
 			return "Dont2 Login"
+
 
             
 @app.route("/cinema/logout")

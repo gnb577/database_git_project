@@ -38,16 +38,3 @@ CREATE TABLE Screen_movies   (
   FOREIGN KEY(theater_name) REFERENCES Theater(name)ON DELETE SET DEFAULT ON UPDATE CASCADE,
   FOREIGN KEY(movie_name) REFERENCES Movie(name) ON DELETE SET DEFAULT ON UPDATE CASCADE
 );
-
-
-CREATE TABLE Reservation   (
-  member_id VARCHAR(80),
-  movie_name VARCHAR(80), 
-  theater_name VARCHAR(80), 
-  score VARCHAR(80),
-  ticketing_time VARCHAR(80),
-  seat VARCHAR(80),
-  PRIMARY KEY (member_id,movie_name,theater_name),
-  FOREIGN KEY(movie_name) REFERENCES Movie(name) ON DELETE SET DEFAULT ON UPDATE CASCADE,
-  FOREIGN KEY(theater_name) REFERENCES Theater(name)ON DELETE SET DEFAULT ON UPDATE CASCADE
-);

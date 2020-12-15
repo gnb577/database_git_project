@@ -260,6 +260,9 @@ INSERT INTO "Screen_movies" VALUES('롯데시네마 동래','엑시트');
 INSERT INTO "Screen_movies" VALUES('롯데시네마 동래','괴물');
 INSERT INTO "Screen_movies" VALUES('롯데시네마 동래','건축학개론');
 
+
+INSERT INTO "Reservation" VALUES('jay','건축학개론','CGV강남','4','2012-12-15 13:00','G2');
+
 commit;
 
 

@@ -1,10 +1,22 @@
-<!doctype HTML>
-<html>
-    <head>
-        <meta charset ="utf-8">
-        <title> Welcome Embedded Reservation</title>
-    </head>
-    <body>
-        <h1>Reservation Page</h1>
-    </body>
-</html>
+
+        <h1>Reservation page</h1>
+      
+        {% if session['logged_in'] %}
+        <form action="/cinema/reservation" method="POST">
+            <label for="movie_name">영화:</label>
+            <input type="movie_name" name="movie_name" placeholder="영화"><br><br>
+            <label for="theater">영화관: </label>
+            <input type="theater" name="theater" placeholder="영화관"><br><br>
+            <label for="score">평점: </label>
+            <input type="score" name="score" placeholder="평점"><br><br>
+            <label for="ticketing_time">발권시간: </label>
+            <input type="ticketing_time" name="ticketing_time" placeholder="발권시간"><br><br>
+            <label for="seat">좌석번호: </label>
+            <input type="seat" name="seat" placeholder="좌석번호"><br><br>
+            <input type="submit" value="예약">
+          </form>
+        {% else %}
+         <p>로그인을 하고 와주세요</p>
+        {% endif %}
+     </body>
+ </html>

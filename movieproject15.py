@@ -1,4 +1,3 @@
-
 from flask import Flask 
 import sqlite3
 from flask import Blueprint, request, render_template, flash, redirect, url_for, session
@@ -11,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///login.db'
 db = SQLAlchemy(app)
 
-login_id = 'admin'
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,15 +29,16 @@ class User(db.Model):
 
 
 @app.route('/')
-@app.route('/cinema',methods = ['POST','GET'])
-def showMenu():
+@app.route('/cinema')
+def showMenu(data = None):
     if not session.get('logged_in'):
         return render_template('/cinema.html')    
     else:
-        if request.method == 'POST':
-            userid = request.form['userid']
-            return render_template('/cinema.html', data=userid)
-        return render_template('/cinema.html')    
+        if data:
+            return render_template('/cinema.html', data = data)
+        else:
+            return render_template('/cinema.html') 
+
 
 @app.route('/cinema/theater')
 @app.route('/cinema/theater/<string:t_name>') 
@@ -141,11 +141,12 @@ def login():
 			data = User.query.filter_by(userid=uid, password=passw).first()
 			if data is not None:
 				session['logged_in'] = True
-				return redirect(url_for('showMenu'))
+				return redirect(url_for('showMenu',data = uid))
 			else:
 				return 'Dont Login'
 		except:
 			return "Dont2 Login"
+
 
             
 @app.route("/cinema/logout")

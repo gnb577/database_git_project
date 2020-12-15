@@ -1,4 +1,3 @@
-
 from flask import Flask 
 import sqlite3
 from flask import Blueprint, request, render_template, flash, redirect, url_for, session
@@ -141,11 +140,12 @@ def login():
 			data = User.query.filter_by(userid=uid, password=passw).first()
 			if data is not None:
 				session['logged_in'] = True
-				return redirect(url_for('showMenu'))
+				return redirect(url_for('showMenu',data = uid))
 			else:
 				return 'Dont Login'
 		except:
 			return "Dont2 Login"
+
 
             
 @app.route("/cinema/logout")
