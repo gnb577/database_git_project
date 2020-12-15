@@ -1,27 +1,38 @@
-
+<html>
+<head>
+    <title>Welcome Embedded Cinema</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        p {
+            text-align: center;
+        } 
+       
+    </style>
+</head>
         <h1>Embedded Cinema</h1>
         
        {% if session['logged_in'] %}
        
-       <p> <a href="http://localhost:5000/cinema/theater">영화관</a><br><br>  </p>
-        <p> <a href="http://localhost:5000/cinema/movie">영화</a><br><br>  </p> 
-        <p> <a href="http://localhost:5000/cinema/reservation/{{data}}">예약</a><br><br>  </p>
-        <p> <a href="http://localhost:5000/cinema/log/{{data}}">고객 기록</a><br><br>  </p>
-        <p> <a href="http://localhost:5000/cinema/register">회원가입</a><br><br>  </p>
+       <p> <a href="http://localhost:5000/cinema/theater">영화관</a> </p> <p><a href="http://localhost:5000/cinema/movie">영화 </a></p>
+        <p>    <a href="http://localhost:5000/cinema/reservation/{{data}}">예약</a> </p>
+            <p>    <a href="http://localhost:5000/cinema/log/{{data}}">고객 기록</a></p> 
+                <p>    <a href="http://localhost:5000/cinema/register">회원가입</a><br><br> </p>
        {% if data %}
-       <h3>{{data}}</h3>
-       <a href="/cinema/logout">로그아웃</a> <br> <br>
+       <h3>{{data}}님이 로그인 중입니다</h3>
+       <a href="/cinema/logout">로그아웃</a> 
        
        {% else %}
-       <a href="/cinema/logout">로그아웃2</a> <br> <br>
+       <a href="/cinema/logout">로그아웃2</a> 
        {% endif %}
      {% else %}
-         <p> <a href="http://localhost:5000/cinema/theater">영화관</a><br><br>  </p>
-         <p> <a href="http://localhost:5000/cinema/movie">영화</a><br><br>  </p> 
-         <p> <a href="http://localhost:5000/cinema/reservation">예약</a><br><br>  </p>
-         <p> <a href="http://localhost:5000/cinema/log">고객 기록</a><br><br>  </p>
-         <p> <a href="http://localhost:5000/cinema/register">회원가입</a><br><br>  </p>
-         <p> <a href="http://localhost:5000/cinema/login">로그인</a><br><br>  </p>
+     
+         <p> <a href="http://localhost:5000/cinema/theater">영화관</a></p> <p><a href="http://localhost:5000/cinema/movie">영화 </a> </p>
+         <p><a href="http://localhost:5000/cinema/reservation/{{data}}">예약</a> </p>
+         <p> <a href="http://localhost:5000/cinema/log">고객 기록</a> </p>
+         <p> <a href="http://localhost:5000/cinema/register">회원가입</a> <br><br> </p>
+         <p><a href="http://localhost:5000/cinema/login">로그인</a>  </p>
      {% endif %}
         
     </body>

@@ -17,22 +17,23 @@
                 </li>
             </ul>
         </form>
-        <table width=400px width=100%>
-            <thead align = "left">
-                <tr>
-                    <th>영화관</th>
-                    <th>지역</th>
-                    <th>상영영화</th>    
-                </tr>   
-            </thead>
+        <table>
+        <thead>
+        <tr>
+        <th>영화관</th>
+        <th>지역</th>
+        <th>상영영화</th>    
+        </tr>   
+        </thead>
         <tbody>
-            {% for item in items %}
-            <tr> 
-                <td> {{ item.name }} </td>
-                <td>{{ item.location }} </td>
-                <td> <a href='/cinema/theater/{{item.name}}'>상영 영화</a></td>  
-            </tr>
-            {% endfor %}
+        {% for item in items %}
+        <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.location }} </td>
+        <td><a href='/cinema/theater/{{item.name}}'>상영 영화</a></td> <br> <br>
+        </tr>   
+        {% endfor %}
+        
         </tbody>
         </table>
     </body>
