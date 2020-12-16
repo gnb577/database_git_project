@@ -1,15 +1,21 @@
-
-    {% if session['logged_in'] %}
-        <h1>{{login_id}} 고객 기록</h1>
-        {% for item in items %}
-        <p>영화: {{ item.movie_name }} </p> 
-        <p>영화관: {{ item.theater_name }}  </p>
-        <p>점수: {{ item.score }}</p> 
-        <p>발행시간: {{ item.ticketing_time }}</p> 
-        <p>좌석번호: {{ item.seat }}</p><br>
-        {% endfor %}
-    {% else %}
-        <p>로그인을 하고 와주세요</p> 
-    {% endif %} 
+<html>
+    <body>
+        {% if session['logged_in'] %}
+            <h1>{{login_id}} 고객 기록</h1>
+            <form action = "/cinema/delete/{{login_id}}" method="post">
+                        <label for="name">Movie_Name:</label>
+                        <input type="text"  name = movie_movie_name3>
+                        <input type="submit" value="삭제">
+            </form>
+            {% for item in items %}
+            <p>영화: {{ item.movie_name }} </p> 
+            <p>영화관: {{ item.theater_name }}  </p>
+            <p>점수: {{ item.score }}</p> 
+            <p>발행시간: {{ item.ticketing_time }}</p> 
+            <p>좌석번호: {{ item.seat }}</p><br>
+            {% endfor %}
+        {% else %}
+            <p>로그인을 하고 와주세요</p> 
+        {% endif %} 
     </body>
 </html>

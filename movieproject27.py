@@ -157,20 +157,33 @@ def showReservation(data=None):
         return render_template('/reservation.html',data = data)
 
 @app.route('/cinema/log')
-@app.route('/cinema/log/<data>', methods=['GET', 'POST'])
+@app.route('/cinema/log/<data>')
 def showLog(data=None):
         if data == None:
             return "로그인을 하고 와주세요."
-        if request.method == 'POST':
-            somename = request.form['']
-        else: 
-            db12 =sqlite3.connect('./movie_cinema.db')
-            db12.row_factory = sqlite3.Row
-            items = db12.execute(
-                'SELECT movie_name,theater_name,score,ticketing_time,seat FROM Reservation WHERE member_id = ?',(data,)
-            ).fetchall()
-            db12.close()
-            return render_template('/log.html',items = items,login_id = data)
+        db12 =sqlite3.connect('./movie_cinema.db')
+        db12.row_factory = sqlite3.Row
+        items = db12.execute(
+            'SELECT movie_name,theater_name,score,ticketing_time,seat FROM Reservation WHERE member_id = ?',(data,)
+        ).fetchall()
+        db12.close()
+        return render_template('/log.html',items = items,login_id = data)
+
+@app.route('/cinema/delete', methods=['GET','POST'])
+@app.route('/cinema/delete/<data>', methods=['GET','POST'])
+def showDelete(data=None):
+    if request.method == 'POST':    
+        movie_name = request.form['movie_movie_name3']
+        print(movie_name)
+        print(data)
+        db =sqlite3.connect('./movie_cinema.db')
+        db.row_factory = sqlite3.Row
+        db.execute(
+            'DELETE FROM Reservation WHERE member_id =? and movie_name= ?',[data,movie_name,]
+        )
+        db.commit()
+        db.close()
+        return redirect(url_for('showMenu',data = data))
 
 @app.route('/cinema/register', methods=['GET', 'POST'])
 def showRegister():
